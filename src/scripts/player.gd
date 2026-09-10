@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
-## 林克角色：四向移动 + 碰撞检测
+## 林克角色：四向移动 + 碰撞检测（俯视角）
 ## 键位：WASD / 方向键
 
 const SPEED: float = 80.0  # 像素/秒
+
+func _ready() -> void:
+	gravity_scale = 0.0  # 俯视角，无重力
 
 func _physics_process(delta: float) -> void:
 	var direction := Vector2.ZERO
@@ -23,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	velocity = direction * SPEED
 	move_and_slide()
 	
-	# 限制在视口内（防止出界）
+	# 限制在视口内
 	var vp_rect = get_viewport_rect()
 	position.x = clamp(position.x, 8, vp_rect.size.x - 8)
 	position.y = clamp(position.y, 8, vp_rect.size.y - 8)
