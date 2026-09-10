@@ -30,7 +30,9 @@ func _build_ui() -> void:
 	panel.offset_top = -32
 	panel.offset_right = 72
 	panel.offset_bottom = 32
-	panel.color = Color(0.06, 0.04, 0.01, 0.95)
+	var sb = StyleBoxFlat.new()
+	sb.bg_color = Color(0.06, 0.04, 0.01, 0.95)
+	panel.add_theme_stylebox_override("panel", sb)
 	add_child(panel)
 	
 	var hbox = HBoxContainer.new()
@@ -97,7 +99,9 @@ func _build_ui() -> void:
 	confirm_panel.offset_top = -30
 	confirm_panel.offset_right = 68
 	confirm_panel.offset_bottom = 30
-	confirm_panel.color = Color(0.04, 0.02, 0.01, 0.98)
+	var sb2 = StyleBoxFlat.new()
+	sb2.bg_color = Color(0.04, 0.02, 0.01, 0.98)
+	confirm_panel.add_theme_stylebox_override("panel", sb2)
 	confirm_panel.visible = false
 	add_child(confirm_panel)
 	

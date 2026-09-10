@@ -33,7 +33,7 @@ func _change_scale(s: int) -> void:
 func resize_window() -> void:
 	# 通过调整窗口大小让 Godot stretch_mode=viewport 自动缩放
 	get_window().size = Vector2i(BASE_W * _scale, BASE_H * _scale)
-	get_window().center()
+	get_window().move_to_center()
 
 func connect_transition_zones() -> void:
 	var entrance = get_node_or_null("CaveEntrance")
