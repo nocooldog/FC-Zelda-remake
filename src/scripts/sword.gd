@@ -5,9 +5,10 @@ extends Area2D
 signal sword_picked_up
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
+	# 同时监听 area 和 body 进入（player 是 CharacterBody2D）
+	body_entered.connect(_on_body_entered)
 
-func _on_area_entered(area: Area2D) -> void:
-	if area.name == "Player":
-		area.pickup_sword()
+func _on_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		body.pickup_sword()
 		queue_free()

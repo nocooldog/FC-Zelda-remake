@@ -141,7 +141,7 @@ func _update_sword() -> void:
 		s = get_tree().get_nodes_in_group("game")[0].has_sword
 	sword_val_label.text = "剑:" + ("有" if s else "无")
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		if event is InputEventKey and event.pressed and event.keycode == KEY_M:
 			_open()

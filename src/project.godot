@@ -14,7 +14,8 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 window/size/viewport_width=240
 window/size/viewport_height=160
 window/size/resizable=false
-window/stretch/mode="disabled"
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [rendering]
 renderer/rendering_method="forward_plus"
