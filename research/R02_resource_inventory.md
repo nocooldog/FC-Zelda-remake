@@ -223,6 +223,13 @@
 | 移动 | 4 向 | 4 向 + 视差 | 4 向 | 已对齐 |
 | 攻击 | 朝向刺击 | 4 种剑技 | 朝向刺击（空格） | E02 范围：仅刺击；4 种剑技属 E03+ |
 | 地图切换 | 单 overworld + 多迷宫 | 多 overworld + 多室内 | 户外 ↔ 洞穴 | 已实现 |
+| **渲染方式** | — | — | **必须用 `_draw()`**（非 ColorRect） | **E01 验证**：ColorRect 在 CharacterBody2D / StaticBody2D 下渲染不稳定（不可见或位置错乱），`player._draw()` + 静态 ColorRect / Polygon2D 才能稳定。E02.5 复发此类问题（commit `411619d` 误改回 ColorRect）。 |
+
+**实现硬约束**（从 E01 修复经验沉淀，后续提交必须遵守）：
+1. **玩家视觉**：用 `player.gd` 的 `_draw()` 画矩形（不依赖 .tscn 序列化）
+2. **场景装饰视觉**：CanvasItem 下不要挂 ColorRect；若需装饰，用 `Polygon2D` 或 sprite
+3. **菜单/UI 文字**：用 `Label` + 显式 `theme_override_fonts/font` 指定像素字体（如 Press Start 2P），不依赖默认系统字体（默认字体在缩放下失真）
+4. **位置**：StaticBody2D / CharacterBody2D 不要手动写 `position` 在 `.tscn` 里——通过 instance 父节点的 position 覆盖，或在 `_ready()` 里设
 
 ---
 
