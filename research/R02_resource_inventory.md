@@ -227,7 +227,7 @@
 
 **实现硬约束**（从 E01 修复经验沉淀，后续提交必须遵守）：
 1. **玩家视觉**：用 `player.gd` 的 `_draw()` 画矩形（不依赖 .tscn 序列化）
-2. **场景装饰视觉**：CanvasItem 下不要挂 ColorRect；若需装饰，用 `Polygon2D` 或 sprite
+2. **场景装饰视觉**：**玩家节点**（CharacterBody2D）下不要挂 ColorRect（历史 bug：E01 修复后此约束是为了避免复发）。StaticBody2D 下挂 ColorRect **实际工作**（墙/地板/洞穴入口可用），但若需严格像素控制，优先用 `Polygon2D` 或 sprite。v0.1.1 进一步验证：sword 删 ColorRect 后**必须**补 `_draw()`（否则剑不可见）。
 3. **菜单/UI 文字**：用 `Label` + 显式 `theme_override_fonts/font` 指定像素字体（如 Press Start 2P），不依赖默认系统字体（默认字体在缩放下失真）
 4. **位置**：StaticBody2D / CharacterBody2D 不要手动写 `position` 在 `.tscn` 里——通过 instance 父节点的 position 覆盖，或在 `_ready()` 里设
 
