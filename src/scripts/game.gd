@@ -56,10 +56,7 @@ func _on_cave_exit(body: Node2D) -> void:
 func on_player_get_sword() -> void:
 	has_sword = true
 	save_game()
-	if player:
-		var cr = player.get_node_or_null("ColorRect")
-		if cr:
-			cr.color = Color(0.5, 0.8, 1.0, 1.0)
+	# player 用 _draw() 绘制，has_sword=true 后变蓝，不需要手动改节点
 
 func transition_to_overworld() -> void:
 	save_game()

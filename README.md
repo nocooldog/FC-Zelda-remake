@@ -68,8 +68,8 @@ zelda-remake/
 ## 当前试玩版本
 
 - **Release**：https://github.com/nocooldog/FC-Zelda-remake/releases/tag/v0.0.1
-- **版本**：v0.1.3（pck sha256 `0b98bdb3...`）
-- **构建**：基于 commit `1e4aeb3`（viewport缩放回归修复）
+- **版本**：v0.2（pck sha256 `d9239c71...`）
+- **构建**：基于 commit `2f064cf`（闭环验证版）
 - **exe + pck**：两个文件需在同一目录，双击 exe 运行
 
 **当前已知问题（v0.1.3）**：

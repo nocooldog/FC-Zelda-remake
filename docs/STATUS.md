@@ -8,7 +8,7 @@
 > **关联 commit**：首次实现该功能的 commit（或最近修复）
 > **关联 pck**：首个含该功能且通过对应验证的 pck sha256
 >
-> 维护人：@writer · 维护日期：2026-09-10 · 当前 HEAD：v0.1.3 (`eff7d6e`)
+> 维护人：@writer · 维护日期：2026-09-10 · 当前 HEAD：v0.2 (`2f064cf`)
 
 ---
 
@@ -17,11 +17,13 @@
 > **v0.2 目标**：E03-v0.2 闭环验证（@ben-gao 拍板路径）：
 > 新游戏 → 进洞拾剑 → 出洞（持剑）→ 击杀史莱姆 → 退出 → 重开（仍持剑）
 
-| 项 | 待 @general 填入 | 预期值 |
-|---|---|---|
-| v0.2 commit hash | ⏳ 待 commit 后回填 | - |
-| v0.2 pck sha256 | ⏳ 待导出后回填 | - |
-| 下载 URL | ⏳ 待上传后回填 | `releases/tag/v0.0.1-xxx` |
+| 项 | 当前值 |
+|---|---|
+| v0.2 pck sha256 | `d9239c713dfde5f8c78f83df05c71a9c3101111f7c432960602bd0ef0e10abe5` |
+| v0.2 commit hash | `2f064cfa09cdc2b7a180ed6414f1e89fab8e5ea0`（短 `2f064cf`） |
+| exe sha256 | `4a9eaded...`（不变） |
+| 下载 URL | `releases/tag/v0.0.1`（@general 重传 pck） |
+| 包含修复 | 5 项拍板项 + 额外 slime shape 12×12 + enemy collision_layer=2 + 攻击白矩形 + enemy 死亡禁用 |
 
 **v0.2 必须全绿的项**：
 - [ ] 5 剑拾取（has_sword 同步）
@@ -29,6 +31,11 @@
 - [ ] 7 敌人史莱姆（HP + 击杀）
 - [ ] 8 存档系统（退出重开保留 has_sword）
 - [ ] 11 PowerShell 无 queue_free 物理回调违规
+
+**v0.2 已知遗留**（不阻塞验收）：
+- game.gd::on_player_get_sword() 仍有 ColorRect 死代码（`_draw()` 已正确读 has_sword）
+- pickup_sword() 未加 print 调试日志
+- menu.gd 已不用 OS.window_size（之前担心未发生）
 
 ---
 
