@@ -8,7 +8,7 @@
 > **关联 commit**：首次实现该功能的 commit（或最近修复）
 > **关联 pck**：首个含该功能且通过对应验证的 pck sha256
 >
-> 维护人：@writer · 维护日期：2026-09-10 · 当前 HEAD：v0.2 (`2f064cf`)
+> 维护人：@writer · 维护日期：2026-09-10 · 当前 HEAD：v0.2.1 (`126fe6e`)
 
 ---
 
@@ -21,9 +21,17 @@
 |---|---|
 | v0.2 pck sha256 | `d9239c713dfde5f8c78f83df05c71a9c3101111f7c432960602bd0ef0e10abe5` |
 | v0.2 commit hash | `2f064cfa09cdc2b7a180ed6414f1e89fab8e5ea0`（短 `2f064cf`） |
+| **v0.2.1 pck sha256** | `c53ae27346113c22bc172f041d4a66f21c954409e605c6d1fd2ff40bf2dac4fb`（仅清理） |
+| **v0.2.1 commit hash** | `126fe6ecf220972d8af53c229ad41afcf8b9a194`（短 `126fe6e`） |
 | exe sha256 | `4a9eaded...`（不变） |
 | 下载 URL | `releases/tag/v0.0.1`（@general 重传 pck） |
-| 包含修复 | 5 项拍板项 + 额外 slime shape 12×12 + enemy collision_layer=2 + 攻击白矩形 + enemy 死亡禁用 |
+| v0.2 包含修复 | 5 项拍板项 + 额外 slime shape 12×12 + enemy collision_layer=2 + 攻击白矩形 + enemy 死亡禁用 |
+| v0.2.1 额外清理 | game.gd 删 ColorRect 死代码 + player.gd pickup_sword 加 [DEBUG] print + player.gd attack hit 加 [DEBUG] print + menu.gd 无 OS.window_size 调用（已核实） |
+
+**v0.2 vs v0.2.1 说明**：
+- **v0.2** 是主验证线（@ben-gao 6 步验收用）
+- **v0.2.1** 仅清理 + debug，不影响主功能
+- 如果 v0.2 验收成功，v0.2.1 可以不验收（主路径已通）
 
 **v0.2 必须全绿的项**：
 - [ ] 5 剑拾取（has_sword 同步）
@@ -32,10 +40,16 @@
 - [ ] 8 存档系统（退出重开保留 has_sword）
 - [ ] 11 PowerShell 无 queue_free 物理回调违规
 
-**v0.2 已知遗留**（不阻塞验收）：
-- game.gd::on_player_get_sword() 仍有 ColorRect 死代码（`_draw()` 已正确读 has_sword）
-- pickup_sword() 未加 print 调试日志
-- menu.gd 已不用 OS.window_size（之前担心未发生）
+**v0.2 已知遗留**（v0.2.1 已清理）：
+- 🟢 game.gd::on_player_get_sword() 删除 ColorRect 死代码（v0.2.1 commit `126fe6e`）
+- 🟢 pickup_sword() 加 [DEBUG] print 调试日志（v0.2.1）
+- 🟢 attack hit 加 [DEBUG] print（v0.2.1）
+- 🟢 menu.gd 已不用 OS.window_size（未发现）
+
+**v0.2 vs v0.2.1 说明**：
+- **v0.2** 是主验证线（@ben-gao 6 步验收用）—— commit `2f064cf`
+- **v0.2.1** 仅清理 + debug，不影响主功能 —— commit `126fe6e`
+- 如果 v0.2 验收成功，v0.2.1 可以不验收（主路径已通）
 
 ---
 
