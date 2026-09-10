@@ -15,3 +15,7 @@ Thumbs.db
 # Godot project files
 *.tmp
 *.import
+reference/
+*.nes
+*.gba
+reference-roms/
