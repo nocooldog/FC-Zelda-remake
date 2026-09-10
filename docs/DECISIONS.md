@@ -156,3 +156,29 @@
 | E01 范围 | 安装 + 最小角色移动与碰墙 + Windows 导出（占位图形） | ✅ 已确认 |
 | E02 范围 | E01 基础上增加取剑、战斗、场景切换、存档；再做风格升级 | ✅ 已确认 |
 | P02 职责 | 仅负责 Surface 上的实际运行验收，复用 E01 导出包，不另做构建 | ✅ 已确认 |
+
+## E01 进展（@general，2026-09-10）
+
+**已完成**
+- ✅ Godot 4.7.2 安装到 `.local/`（通过 v2ray 代理下载）
+- ✅ 项目结构：`src/scenes/` `src/scripts/` `src/assets/` `src/data/`
+- ✅ 林克角色：四向移动 + 碰墙检测 + 边界限制
+- ✅ 主场景：玩家 + 左墙 + 右墙 + 地板（占位色块）
+- ✅ Godot headless 验证通过
+- ✅ Windows 导出配置 `export_presets.cfg` 已设置
+- ✅ `.gitignore` 更新（排除 .local/ builds/ .godot/）
+
+**阻塞中**
+- ❌ Windows 导出模板（1.2GB）下载：v2ray 代理中途断开，需要稳定连接或 @ben-gao 本地导出
+
+## E01 完成（@general，2026-09-10）
+
+**最终交付**
+- ✅ Godot 4.7.2 安装到 `.local/`
+- ✅ 导出模板安装到 `~/.local/share/godot/export_templates/4.7.2.stable/`
+- ✅ 林克四向移动 + 碰墙（`src/scripts/player.gd`）
+- ✅ Windows x86_64 导出：`builds/zelda-prototype.exe`（105MB）
+- ✅ 启动说明：`docs/RUN_INSTRUCTIONS.md`
+- ✅ 源码 commit `f320973`
+
+**用户验收**：Surface Pro 8 下载 `builds/zelda-prototype.exe`，双击运行，WASD/方向键移动，确认碰撞正常。
