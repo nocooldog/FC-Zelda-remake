@@ -181,6 +181,49 @@
 | ZeldaMaps | zeldamaps.dyndns.org | 经典地图截图 |
 | NES ROM Hacking 社区 | romhacking.net | ROM 拆解工具与文档 |
 
+### 6.4 公开参考资料分析结果（@ben-gao 拍板 GBA 240×160 后）
+
+> 来源：Wikipedia（已提供链接）、StrategyWiki（已访问）、公开 Wikipedia/romhacking.com 摘要。
+> **仅基于公开资料层**，不读取用户上传的 ROM 字节码。
+> 模拟器（fceux）在本机 headless 下崩溃（buffer overflow），未能产出 ROM 截图；已记录为阻碍项。
+
+#### 6.4.1 NES 一代公开技术参数
+
+| 项 | 值 | 来源 |
+|---|---|---|
+| 原始分辨率 | 256×240（含状态条），有效游戏区 256×224 | Wikipedia "The Legend of Zelda" |
+| 颜色 | 调色板 6 色，选 4 色用于场景 | Wikipedia |
+| tile 限制 | "Due to the Famicom only supporting 256 tiles" | Wikipedia |
+| 地图结构 | 8×8 屏幕 overworld（flip-screen，每屏幕 256×224），连成 16×8 总布局 | 公开 disassembly 摘要 |
+| 迷宫数 | 8 个主迷宫 + 隐藏迷宫 | Wikipedia / ZQC |
+| 场景类型 | overworld（草地/森林/沙漠/雪山/死亡山）、洞穴、迷宫、商店 | ZQC 模板 |
+| 玩家移动 | 四向（NES 手柄无斜向） | ZQC |
+| 武器 | 木剑（起始获得）、白剑、魔法剑、银箭 | ZQC |
+| 护甲 | 小盾牌、魔法盾牌 | ZQC |
+| 主要敌人 | Octorok（八爪鱼）、Moblins（猪兵）、Tektites（蜘蛛）、Wizzrobes（巫师）、Ganon | ZQC 公开摘要 |
+
+#### 6.4.2 GBA 缩小帽公开技术参数（已拍板的风格参考目标）
+
+| 项 | 值 | 来源 |
+|---|---|---|
+| 原始分辨率 | **240×160**（与 @ben-gao 拍板一致） | Wikipedia "The Legend of Zelda: The Minish Cap" |
+| 移动 | 四方向（手柄方向键）；斜视差视角（角色走动时有 3D 视错觉） | Wikipedia |
+| 特色机制 | 缩小帽（缩小身型进入微观世界）、融合魔法（与他人合体）、剑技（4 种剑技：回旋斩、暴斩、推剑、大旋） | Wikipedia / 公开资料 |
+| 美术风格 | 经典 2D 像素 + 暖色调；人物比例偏卡通圆滑 | 公开截图描述 |
+| tile | 16×16 像素 tile（与 NES 一代同尺寸） | ZQC / 公开分析 |
+| 视差层 | 多层视差（前景/中景/背景），增强深度感 | 公开描述 |
+
+#### 6.4.3 与当前项目的映射
+
+| 项 | NES 一代 | GBA 缩小帽（目标） | 当前 E02 v0.0.3 | 调整建议 |
+|---|---|---|---|---|
+| 分辨率 | 256×224 | **240×160** ✅ | 240×160 | 已对齐 |
+| tile 尺寸 | 8×8 / 16×16 | 16×16 | 16×16 | 已对齐 |
+| 玩家碰撞 | 8×8（NES 调色） | 8×8 | 8×8 | 已对齐 |
+| 移动 | 4 向 | 4 向 + 视差 | 4 向 | 已对齐 |
+| 攻击 | 朝向刺击 | 4 种剑技 | 朝向刺击（空格） | E02 范围：仅刺击；4 种剑技属 E03+ |
+| 地图切换 | 单 overworld + 多迷宫 | 多 overworld + 多室内 | 户外 ↔ 洞穴 | 已实现 |
+
 ---
 
 ## 七、引擎与代码资源
@@ -386,3 +429,27 @@ zelda-remake/src/
 **最重要的两个行动**：
 1. @ben-gao 拍板美术方向（自绘/开源/委托）
 2. @ben-gao 决定是否上传 NES ROM 拆解资料（ZQuestClassic 内置 NES quest 模板可作为参考起点）
+
+---
+
+## 十三、补充：模拟器截图尝试受阻
+
+@ben-gao 2026-09-10 17:14 拍板：可以在 macmini02 上用模拟器跑 ROM 截图作参考，不提取字节码。
+
+已安装：
+- `fceux` 2.5.0（NES 模拟器）
+- `mgba-sdl`（GBA 模拟器）
+- `xvfb` 虚拟 X server
+- `scrot` X11 截图工具
+
+**问题**：
+- fceux 在 Xvfb 下加载 NES ROM 后崩溃：`*** buffer overflow detected ***: terminated`，在 "Loading SDL sound with pulseaudio driver" 后立即报错。多次尝试包括 `SDL_AUDIODRIVER=dummy`、`QT_DEBUG_PLUGINS=1` 都无法绕过。
+- 错误可能是 fceux 2.5.0 + Qt + Xvfb 的已知兼容问题。
+- mgba-sdl 未实际测试（优先处理 fceux 问题）。
+
+**替代方案**：
+- 方案 A：用户本地用模拟器截图 → 传上来（@scout 接收后基于截图分析）
+- 方案 B：基于公开资料（Wikipedia / StrategyWiki / ZQC disassembly 摘要）做参数对照——已写入 §6.4
+- 方案 C：等后续升级 fceux 或换 RetroArch（apt 不可用，需自行安装）
+
+当前 R02 §6.4 已用方案 B 完成。方案 A 可作为补充（如 @ben-gao 愿意本地截图）。
