@@ -12,6 +12,7 @@ var confirm_sel: int = 1 # 0=是的, 1=再想想
 var sword_val_label: Label
 var arrow1: Label
 var arrow2: Label
+var panel: PanelContainer
 var confirm_panel: PanelContainer
 var yes_lbl: Label
 var no_lbl: Label
@@ -21,8 +22,10 @@ func _ready() -> void:
 	_build_ui()
 
 func _build_ui() -> void:
-	var panel = PanelContainer.new()
+	panel = PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	panel.focus_mode = Control.FOCUS_ALL
 	panel.offset_left = -72
 	panel.offset_top = -32
 	panel.offset_right = 72
@@ -159,6 +162,7 @@ func _input(event: InputEvent) -> void:
 			elif event.keycode in [KEY_M, KEY_ESCAPE]:
 				_close()
 			elif event.keycode in [KEY_SPACE, KEY_ENTER]:
+				# 任意项上按空格：装备项暂不动作，退出项打开确认
 				if selected == 1:
 					_show_confirm()
 		State.CONFIRM:
@@ -185,6 +189,8 @@ func _open() -> void:
 	visible = true
 	get_tree().paused = true
 	_update()
+	# grab focus 到主面板
+	panel.grab_focus()
 
 func _close() -> void:
 	visible = false
