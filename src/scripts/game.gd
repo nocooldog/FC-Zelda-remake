@@ -31,6 +31,9 @@ func _change_scale(s: int) -> void:
 	resize_window()
 
 func resize_window() -> void:
+	# 通过 content_scale_factor 缩放 viewport 内容
+	get_viewport().content_scale_factor = float(_scale)
+	# 调整窗口大小
 	get_window().size = Vector2i(BASE_W * _scale, BASE_H * _scale)
 	get_window().center()
 

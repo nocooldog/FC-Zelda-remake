@@ -9,6 +9,9 @@ var has_sword: bool = false
 var is_attacking: bool = false
 const ATTACK_DURATION: float = 0.2
 
+func _ready() -> void:
+	add_to_group("player")
+
 func _physics_process(delta: float) -> void:
 	if is_attacking:
 		position.x = clamp(position.x, 6.0, 234.0)
