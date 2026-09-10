@@ -21,4 +21,4 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	position.x = clamp(position.x, 6.0, 250.0)
-	position.y = clamp(position.y, 6.0, 218.0)
+	position.y = clamp(position.y, 6.0, 214.0)
