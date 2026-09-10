@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://main01"]
+[gd_scene load_steps=4 format=3 uid="uid://cave01"]
 
 [ext_resource type="PackedScene" uid="uid://player01" path="res://scenes/player.tscn" id="1_player"]
-[ext_resource type="PackedScene" uid="uid://slime01" path="res://scenes/slime.tscn" id="2_slime"]
+[ext_resource type="PackedScene" uid="uid://sword01" path="res://scenes/sword.tscn" id="2_sword"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="3_game"]
 
 [sub_resource type="RectangleShape2D" id="Shape2D_wall"]
@@ -10,17 +10,19 @@ size = Vector2(8, 224)
 [sub_resource type="RectangleShape2D" id="Shape2D_floor"]
 size = Vector2(256, 8)
 
-[sub_resource type="RectangleShape2D" id="Shape2D_entrance"]
+[sub_resource type="RectangleShape2D" id="Shape2D_exit"]
 size = Vector2(32, 8)
 
-[node name="Main" type="Node2D"]
+[node name="Cave" type="Node2D"]
 script = ExtResource("3_game")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(128, 40)
+
+[node name="SwordSpawn" type="Node2D" parent="."]
 position = Vector2(128, 150)
 
-[node name="Slime" parent="." instance=ExtResource("2_slime")]
-position = Vector2(200, 112)
+[node name="Sword" parent="SwordSpawn" instance=ExtResource("2_sword")]
 
 [node name="WallL" type="StaticBody2D" parent="."]
 
@@ -61,18 +63,24 @@ offset_right = 256
 offset_bottom = 224
 color = Color(0.2, 0.55, 0.2, 1)
 
-[node name="SwordSpawn" type="Node2D" parent="."]
-position = Vector2(80, 140)
+[node name="CaveExit" type="Area2D" parent="."]
 
-[node name="CaveEntrance" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveEntrance"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveExit"]
 position = Vector2(128, 4)
-shape = SubResource("Shape2D_entrance")
+shape = SubResource("Shape2D_exit")
 
-[node name="ColorRect" type="ColorRect" parent="CaveEntrance"]
+[node name="ColorRect" type="ColorRect" parent="CaveExit"]
 offset_left = 112
 offset_top = 0
 offset_right = 144
 offset_bottom = 8
-color = Color(0.15, 0.1, 0.05, 1)
+color = Color(0.3, 0.6, 0.3, 1)
+
+[node name="OldMan" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="OldMan"]
+offset_left = 118
+offset_top = 80
+offset_right = 138
+offset_bottom = 100
+color = Color(0.7, 0.6, 0.5, 1)
