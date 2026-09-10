@@ -91,12 +91,15 @@ func check_attack_hit() -> void:
 	query.transform = Transform2D(0, query_center)
 	
 	var results = space.intersect_shape(query, 4)
+	print("[DEBUG] attack facing=", facing, " results=", results.size())
 	for r in results:
 		var collider = r.get("collider")
 		if collider and collider.has_method("take_damage"):
+			print("[DEBUG] hit enemy: ", collider.name)
 			collider.take_damage()
 
 func pickup_sword() -> void:
+	print("[DEBUG] pickup_sword called, has_sword before=", has_sword)
 	if has_sword:
 		return
 	has_sword = true
@@ -105,3 +108,4 @@ func pickup_sword() -> void:
 	var game_nodes = get_tree().get_nodes_in_group("game")
 	if game_nodes.size() > 0:
 		game_nodes[0].on_player_get_sword()
+		print("[DEBUG] game.has_sword synced, game.has_sword=", game_nodes[0].has_sword)
