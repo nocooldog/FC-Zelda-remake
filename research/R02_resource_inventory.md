@@ -523,3 +523,69 @@ zelda-remake/src/
 3. 对比 `GdKhbhONz4k` NES 秘密汇总 → 提取隐藏要素（为后续迷宫设计参考）
 
 **注意**：上述所有内容为**公开可访问的视频攻略 + 文字攻略**，不涉及 ROM 字节码提取。
+
+---
+
+## 十五、§十四 扩展：参考资源三分类（设计参考链）
+
+@ben-gao 2026-09-10 21:17 澄清：这些攻略资料是给团队做**剧情 / 地图 / 人物形象**设计时的参考，不是他个人看。为让参考链清晰可追溯，§十四 拆为以下三个子节。
+
+> 所有参考均为**公开可访问的视频 / Wiki / 文字攻略 URL**，不涉及 ROM 字节码提取。每条都明确"参考来源"定位，避免被误读为"数据来源"。
+
+### 15.A 视觉风格参考（截图 + 文字描述）
+
+**YouTube 公开视频缩略图 URL 格式**：`https://i.ytimg.com/vi/<VIDEO_ID>/maxresdefault.jpg`
+（scout 需查看时，可访问 URL 在浏览器；不下载嵌入 scout 报告。）
+
+| 视频 ID | 用途 | 关键画面描述（公开描述） |
+|---|---|---|
+| `lHH1etcuKg4` | **GBA 缩小帽视觉基线** | 240×160 原生 viewport 与放大版本对比，多场景切换 |
+| `W6LuoePYECw` | 缩小帽 IPS 补丁版 | IPS v2 调色后的画面（可选为风格参考） |
+| `67JnuDtTp_Y` | 缩小帽全场景 | 开场、林克、Vaati、各场景、菜单、装备界面 |
+| `UfEMNbjLd3Y` | 缩小帽 Full Playthrough | 与 67JnuDtTp_Y 类似，可作为交叉验证 |
+| `q3Kg8l_Klw8` | 缩小帽 US longplay | 美版完整 longplay |
+| `tqXXWhpthj8` | **NES 一代全场景参考** | 8 迷宫 + overworld + 隐藏要素完整呈现 |
+| `6g2vk8Gudqs` | NES 100% 攻略 | 同上，可交叉验证 |
+| `GdKhbhONz4k` | NES 隐藏要素 | 隐藏洞穴、隐藏路、秘密道具位置 |
+| `XsJoSrSx23g` | NES 银剑隐藏 | 隐藏要素具体表现 |
+| `ETE2rwqPL9o` | NES 取剑场景 | 第一洞穴 + 老人 + 剑的具体呈现 |
+| `1HDQynNUCyU` | NES 双剑升级 | 两次取剑 + 升级过程 |
+
+### 15.B 地图 / 关卡参考（场景布局）
+
+| 来源 | URL | 覆盖 | 说明 |
+|---|---|---|---|
+| NES Zelda Maps | <https://www.zeldamaps.com/index.php/overworld/> | NES overworld 完整地图（16×8 屏幕） | zeldamaps.com 是公开玩家社区资源 |
+| Zelda Wiki: Overworld | <https://zelda.fandom.com/wiki/Overworld> | NES / GBA 多个 overworld | Fandom Cloudflare 被拦，但 URL 记录供手动访问 |
+| Zelda Wiki: Dungeons in Zelda 1 | <https://zelda.fandom.com/wiki/Dungeons_in_The_Legend_of_Zelda> | NES 8 个迷宫布局 | 同上 |
+| Zelda Wiki: Hyrule Castle | <https://zelda.fandom.com/wiki/Hyrule_Castle_(The_Legend_of_Zelda)> | 初始城堡 / 林克初始位置 | 同上 |
+| Zelda Wiki: Cave | <https://zelda.fandom.com/wiki/Cave> | 洞穴通用规则 | 同上 |
+
+### 15.C 剧情 / 命名 / 角色参考
+
+| 来源 | URL | 覆盖 |
+|---|---|---|
+| Wikipedia: The Legend of Zelda | <https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)> | NES 一代剧情完整介绍（已访问） |
+| Wikipedia: The Minish Cap | <https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_The_Minish_Cap> | GBA 缩小帽剧情完整介绍（已访问） |
+| StrategyWiki: Zelda 1 | <https://strategywiki.org/wiki/The_Legend_of_Zelda> | NES 剧情与攻略文字版（已访问） |
+| Zelda Wiki: Link | <https://zelda.fandom.com/wiki/Link> | 主角命名 / 形象参考 |
+| Zelda Wiki: Zelda | <https://zelda.fandom.com/wiki/Princess_Zelda> | 公主命名 / 形象参考 |
+| Zelda Wiki: Ganon | <https://zelda.fandom.com/wiki/Ganon> | 反派命名 / 形象参考 |
+
+**公开设定要素**（已 Wikipedia / StrategyWiki 确认）：
+- 主角名：Link（“联系两个世界”的隐喻）
+- 公主名：Zelda（以 Zelda Fitzgerald 命名）
+- 反派名：Ganon / 鬼龙（力量象征）
+- 剧情主线：Ganon 抓走公主，拆 Triforce of Wisdom 八块藏入 8 迷宫；林克收集 8 块 → 推 Ganon → 救公主
+- 缩小帽主线：Vaati 魔化公主，林克拿缩小帽进入微型世界，友谊主题
+
+### 15.D 参考应用方式
+
+| 阶段 | 负责 | 引用哪节 |
+|---|---|---|
+| E02 室内 / 场景设计 | @general | §15.A（GBA 视觉基线）+ §15.B（场景布局参考） |
+| E03 敌人设计 | @general | §15.A + §15.B 敌人位置参考 |
+| E04 剧情 / 命名 | @writer | §15.C（剧情 / 命名 / 角色） |
+| 设计决策 | 全员 | §十五 作为公开依据链，避免被误解为 ROM 衍生 |
+
+**设计原则**：参考公开作品是 normal practice（公开 wiki / 攻略 / 视频是社区资源）；但**避免 1:1 复制场景/美术/对话**。以“启发”而非“复制”为原则。
