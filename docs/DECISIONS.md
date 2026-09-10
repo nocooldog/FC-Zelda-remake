@@ -182,3 +182,17 @@
 - ✅ 源码 commit `f320973`
 
 **用户验收**：Surface Pro 8 下载 `builds/zelda-prototype.exe`，双击运行，WASD/方向键移动，确认碰撞正常。
+
+**GitHub 远程仓库（@ben-gao 配置）：**
+- 仓库：https://github.com/nocooldog/FC-Zelda-remake
+- 已 push 到 main 分支（commit 推送成功）
+- 凭据通过 token（ghp_***）嵌入 URL
+
+**v2ray 持久化（@ben-gao 配置）：**
+- v2ray 已设为开机自启，无需手动启动
+
+## E01 exe 分发
+- `builds/zelda-prototype.exe`（105MB）在服务器 `/home/ben/zelda-remake/builds/`
+- 仓库是私有的，GitHub release download URL 需要登录权限
+- 获取方式：scp 从服务器拉，或 clone 后从本地 builds/ 目录取
+- `docs/E01_report.md` 已 commit（`5d5be89`）
