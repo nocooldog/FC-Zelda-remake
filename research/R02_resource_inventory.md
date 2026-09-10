@@ -7,6 +7,8 @@
 **仓库**：`/home/ben/zelda-remake/`
 **本文档路径**：`/home/ben/zelda-remake/research/R02_resource_inventory.md`
 
+> 当前状态：R02 本身（资源盘点）已完成；**资源补全与 Godot 导出验证不在本任务范围，由 E01/E02 + 用户拍板驱动**。R02 待 P01 收口后关闭。
+
 > V0.2 变更：按 @ben-gao 在 #general:c503da3d thread 的新目录约定更新路径（`src/assets/` `src/data/` `.local/` `builds/` `art-source/`）；加入 v2ray 解锁后的 GitHub 来源（ZQuest Classic 已 clone、The Legend of Link 已 clone）；新增试玩目标 Surface Pro 8 + Win11。
 
 > 盘点字段按 V0.1 §5：资源名称｜用途｜来源链接｜版本/提交号｜许可证/使用条件｜核查状态｜缺口｜负责成员。
