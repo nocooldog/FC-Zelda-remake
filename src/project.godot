@@ -16,6 +16,7 @@ window/size/viewport_height=160
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+window/stretch/scale_mode="fractional"
 
 [rendering]
 renderer/rendering_method="forward_plus"

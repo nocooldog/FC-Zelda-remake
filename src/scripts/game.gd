@@ -31,9 +31,7 @@ func _change_scale(s: int) -> void:
 	resize_window()
 
 func resize_window() -> void:
-	# 通过 content_scale_factor 缩放 viewport 内容
-	get_viewport().content_scale_factor = float(_scale)
-	# 调整窗口大小
+	# 通过调整窗口大小让 Godot stretch_mode=viewport 自动缩放
 	get_window().size = Vector2i(BASE_W * _scale, BASE_H * _scale)
 	get_window().center()
 
