@@ -22,7 +22,7 @@
 | D-001 | 重制对象为 NES《塞尔达传说》一代 | ✅ 已确认 | 用户明确目标 | PROJECT_DEF_V0.1 §1 |
 | D-002 | 美术风格参考 GBA《缩小帽》 | ✅ 已确认 | 用户明确目标 | PROJECT_DEF_V0.1 §1 |
 | D-003 | 平台：先开发电脑版（键盘+手柄） | 🔄 推荐默认 | 不等于 GBA 原生；待用户确认 | PROJECT_DEF_V0.1 §2 |
-| D-004 | 引擎候选：Godot 为主，ZQuest Classic 为辅，Solarus 为备选 | 🔄 推荐默认 | 尚未最终选定；依赖 R01/E01 核查 | PROJECT_DEF_V0.1 §2 |
+| D-004 | 引擎候选：Godot 为主，ZQuest Classic 为辅，Solarus 为备选 | ✅ 已确认 | P01 收口：锁定 Godot 4.7.2 + GDScript | PROJECT_DEF_V0.1 §2, P01 |
 | D-005 | 若选 Godot，使用 GDScript 并锁定引擎版本 | 🔄 推荐默认 | 条件性推荐，待引擎确定 | PROJECT_DEF_V0.1 §2 |
 | D-006 | 开发范围：先完成第一轮冒险（样板通过后） | 🔄 推荐默认 | 不承诺完整游戏工期 | PROJECT_DEF_V0.1 §2 |
 | D-007 | 当前阶段顺序：项目定义 → 资源盘点 → 可玩样板 | ✅ 已确认 | 推荐执行顺序 | PROJECT_DEF_V0.1 §2 |
@@ -193,6 +193,6 @@
 
 ## E01 exe 分发
 - `builds/zelda-prototype.exe`（105MB）在服务器 `/home/ben/zelda-remake/builds/`
-- 仓库是私有的，GitHub release download URL 需要登录权限
+- 仓库已改为 public（@general 操作），无需登录即可下载
 - 获取方式：scp 从服务器拉，或 clone 后从本地 builds/ 目录取
 - `docs/E01_report.md` 已 commit（`5d5be89`）
