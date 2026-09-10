@@ -460,3 +460,66 @@ zelda-remake/src/
 - 方案 C：等后续升级 fceux 或换 RetroArch（apt 不可用，需自行安装）
 
 当前 R02 §6.4 已用方案 B 完成。方案 A 可作为补充（如 @ben-gao 愿意本地截图）。
+
+---
+
+## 十四、公开攻略 / 视频参考（§6.4 延伸）
+
+@ben-gao 2026-09-10 21:11 追加：搜公开攻略 + 视频攻略获取游戏画面。scout 仅引用 URL + 文字描述，不下载视频/截图字节码。
+
+### 14.1 NES 一代公开攻略视频（YouTube）
+
+| 视频 ID | URL | 类型 | 覆盖场景 | 可用描述 |
+|---|---|---|---|---|
+| `tqXXWhpthj8` | <https://youtu.be/tqXXWhpthj8> | 全程 100% 零伤通关 | 全部场景（开局、取剑、迷宫、Death Mountain） | RetroArchive 频道 |
+| `6g2vk8Gudqs` | <https://youtu.be/6g2vk8Gudqs> | 100% 全程攻略 | 全部场景 | packattack04082 |
+| `_nmEBas91CI` | <https://youtu.be/_nmEBas91CI> | 前期秘籍（额外心、剑升级） | 前期 + 取剑 + 魔法剑 | “EARLY GAME SECRETS” |
+| `ETE2rwqPL9o` | <https://youtu.be/ETE2rwqPL9o> | “魔法剑”获取 | 取剑洞穴 + 老人 + 剑升级 | Episode 5 |
+| `1HDQynNUCyU` | <https://youtu.be/1HDQynNUCyU> | 两次剑升级获取 | 第一次取剑 + 后续升级 | How to Get Both Sword Upgrades |
+| `KsXJoSrSx23g`（原 XsJoSrSx23g） | <https://youtu.be/XsJoSrSx23g> | 银剑立即获取 | 取剑 + 银剑隐藏点 | How to get Silver Sword |
+| `GdKhbhONz4k` | <https://youtu.be/GdKhbhONz4k> | 隐藏秘密 / 道具 / 区域 / 武器汇总 | 全部隐藏要素 | Hyrule Reverie |
+| `zCzQG4XMezs` | <https://youtu.be/zCzQG4XMezs> | 第一部分（隐藏洞穴 + 第一迷宫） | 开局室外 + 初始洞穴 | Part 1 |
+| `3zwV2LGrTnA` | <https://youtu.be/3zwV2LGrTnA> | Second Quest 攻略 | 第二轮冒险场景（与第一轮不同） | Second Quest |
+
+**可用于核对的关键画面**（scout 未来需要时调阅）：
+- 开局室外（林克初始位置、洞穴入口位置、史菜姆/莫布林刷新点）
+- 初始洞穴（老人 + 剑的位置、墙布局）
+- 8 个迷宫的入口标记
+
+### 14.2 GBA 缩小帽公开攻略视频（YouTube）
+
+| 视频 ID | URL | 类型 | 覆盖场景 |
+|---|---|---|---|
+| `67JnuDtTp_Y` | <https://youtu.be/67JnuDtTp_Y> | Full 100% Walkthrough | 全部场景 |
+| `UfEMNbjLd3Y` | <https://youtu.be/UfEMNbjLd3Y> | Full Playthrough | 全部场景 |
+| `lHH1etcuKg4` | <https://youtu.be/lHH1etcuKg4> | **GBA Upscaling Test** | 专门展示 240×160 原生画面 + 放大效果（最适合视觉参考） |
+| `W6LuoePYECw` | <https://youtu.be/W6LuoePYECw> | IPS v2 GBA Gameplay | IPS 补丁版画面参考 |
+| `q3Kg8l_Klw8` | <https://youtu.be/q3Kg8l_Klw8> | Longplay [002] US | 美版完整 longplay |
+| `2a4Ai1_t3RA` | <https://youtu.be/2a4Ai1_t3RA> | Complete 100% Walkthrough | 全部场景 |
+| `nJ_rwXnLxmI` | <https://youtu.be/nJ_rwXnLxmI> | Minish Cap 3DS Port | 3DS 移植版画面（可对比 GBA 原生风格） |
+
+**可用于核对的关键画面**：
+- 240×160 原生 viewport 下的角色 / 场景渲染
+- 林克精灵尺寸与动画帧（走动、攻击、受击）
+- 室内 / 室外 tileset 调色板
+- 菜单 / 装备界面布局（与本项目 M 菜单对比）
+- 调色板方向（暖色、中色、背景色）
+
+### 14.3 补充公开资源
+
+| 来源 | URL | 备注 |
+|---|---|---|
+| GameFAQs NES Zelda 攻略 | <https://gamefaqs.gamespot.com/nes/563433-the-legend-of-zelda> | 文字攻略 + 场景地图（403 Cloudflare，未能访问但链接记录） |
+| Zelda Fandom Wiki（The Legend of Zelda） | <https://zelda.fandom.com/wiki/The_Legend_of_Zelda> | 场景 / 敌人 / 道具参考（Cloudflare 被拦） |
+| Zelda Fandom Wiki（Minish Cap） | <https://zelda.fandom.com/wiki/The_Legend_of_Zelda:_The_Minish_Cap> | 同上（Cloudflare 被拦） |
+| StrategyWiki Zelda | <https://strategywiki.org/wiki/The_Legend_of_Zelda> | 文字攻略（已访问，含剧情与攻略） |
+| StrategyWiki Minish Cap | <https://strategywiki.org/wiki/The_Legend_of_Zelda:_The_Minish_Cap> | 同上 |
+
+### 14.4 推荐调阅顺序
+
+如果未来 scout 需要补齐画面描述，推荐顺序：
+1. 先看 GBA 缩小帽的 `lHH1etcuKg4`（GBA upscaling）→ 明确 GBA 风格基线
+2. 再看 NES 一代 `tqXXWhpthj8` 100% 零伤通关 → 了解一代全场景与机制
+3. 对比 `GdKhbhONz4k` NES 秘密汇总 → 提取隐藏要素（为后续迷宫设计参考）
+
+**注意**：上述所有内容为**公开可访问的视频攻略 + 文字攻略**，不涉及 ROM 字节码提取。
