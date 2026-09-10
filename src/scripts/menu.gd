@@ -1,196 +1,203 @@
 extends CanvasLayer
 
 ## 暂停菜单（M 键打开）
+## 左右键切换"装备"和"退出"，空格确认
 
-enum State { MENU, CONFIRM }
-enum MenuOption { QUIT }
-enum ConfirmOption { YES, NO }
+enum State { NONE, MENU, CONFIRM }
 
-var state: State = State.MENU
-var selected: MenuOption = MenuOption.QUIT
-var confirm_selected: ConfirmOption = ConfirmOption.NO
+var state: State = State.NONE
+var selected: int = 1   # 0=装备, 1=退出
+var confirm_sel: int = 1 # 0=是的, 1=再想想
 
-# UI 节点
-var panel: PanelContainer
-var menu_label: Label
-var equip_label: Label
-var sword_label: Label
-var quit_label: Label
+var sword_val_label: Label
+var arrow1: Label
+var arrow2: Label
 var confirm_panel: PanelContainer
-var yes_label: Label
-var no_label: Label
-var prompt_label: Label
+var yes_lbl: Label
+var no_lbl: Label
 
 func _ready() -> void:
 	visible = false
-	_create_ui()
+	_build_ui()
 
-func _create_ui() -> void:
-	# 背景遮罩
-	var bg = ColorRect.new()
-	bg.color = Color(0, 0, 0, 0.6)
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(bg)
-	
-	# 主面板
-	panel = PanelContainer.new()
+func _build_ui() -> void:
+	var panel = PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.offset_left = -60
-	panel.offset_top = -50
-	panel.offset_right = 60
-	panel.offset_bottom = 50
-	panel.color = Color(0.1, 0.1, 0.2, 0.95)
+	panel.offset_left = -72
+	panel.offset_top = -32
+	panel.offset_right = 72
+	panel.offset_bottom = 32
+	panel.color = Color(0.06, 0.04, 0.01, 0.95)
 	add_child(panel)
 	
-	var vbox = VBoxContainer.new()
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	vbox.custom_minimum_size = Vector2(120, 0)
-	panel.add_child(vbox)
+	var hbox = HBoxContainer.new()
+	hbox.alignment = HBoxContainer.ALIGNMENT_CENTER
+	hbox.add_theme_constant_override("separation", 28)
+	panel.add_child(hbox)
 	
-	# 标题
-	var title = Label.new()
-	title.text = "≡ 菜单 ≡"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 14)
-	vbox.add_child(title)
+	# === 装备项 ===
+	var equip_box = VBoxContainer.new()
+	equip_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_child(equip_box)
 	
-	_add_spacer(vbox, 6)
+	arrow1 = Label.new()
+	arrow1.text = "^"
+	arrow1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	arrow1.add_theme_font_size_override("font_size", 9)
+	arrow1.add_theme_color_override("font_color", Color(1, 1, 0.3))
+	arrow1.visible = false
+	equip_box.add_child(arrow1)
 	
-	# 装备
-	equip_label = Label.new()
-	equip_label.text = "装备："
-	equip_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	equip_label.add_theme_font_size_override("font_size", 10)
-	vbox.add_child(equip_label)
+	var e1 = Label.new()
+	e1.text = "装备"
+	e1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	e1.add_theme_font_size_override("font_size", 11)
+	equip_box.add_child(e1)
 	
-	sword_label = Label.new()
-	sword_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sword_label.add_theme_font_size_override("font_size", 10)
-	_update_sword_label()
-	vbox.add_child(sword_label)
+	sword_val_label = Label.new()
+	sword_val_label.text = "无剑"
+	sword_val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sword_val_label.add_theme_font_size_override("font_size", 9)
+	sword_val_label.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
+	equip_box.add_child(sword_val_label)
 	
-	_add_spacer(vbox, 8)
+	# === 退出项 ===
+	var quit_box = VBoxContainer.new()
+	quit_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_child(quit_box)
 	
-	# 提示
-	prompt_label = Label.new()
-	prompt_label.text = "← → 选择"
-	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	prompt_label.add_theme_font_size_override("font_size", 9)
-	vbox.add_child(prompt_label)
+	arrow2 = Label.new()
+	arrow2.text = "^"
+	arrow2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	arrow2.add_theme_font_size_override("font_size", 9)
+	arrow2.add_theme_color_override("font_color", Color(1, 1, 0.3))
+	arrow2.visible = false
+	quit_box.add_child(arrow2)
 	
-	# 退出按钮
-	quit_label = Label.new()
-	quit_label.name = "Quit"
-	quit_label.text = "[ 退出 ]"
-	quit_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	quit_label.add_theme_font_size_override("font_size", 12)
-	vbox.add_child(quit_label)
+	var q1 = Label.new()
+	q1.text = "退出"
+	q1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	q1.add_theme_font_size_override("font_size", 11)
+	quit_box.add_child(q1)
 	
-	_add_spacer(vbox, 4)
+	var q2 = Label.new()
+	q2.text = "→ ← 选"
+	q2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	q2.add_theme_font_size_override("font_size", 7)
+	q2.add_theme_color_override("font_color", Color(0.45, 0.45, 0.45))
+	quit_box.add_child(q2)
 	
-	# 确认面板（隐藏）
+	# === 确认面板 ===
 	confirm_panel = PanelContainer.new()
 	confirm_panel.set_anchors_preset(Control.PRESET_CENTER)
-	confirm_panel.offset_left = -55
-	confirm_panel.offset_top = -35
-	confirm_panel.offset_right = 55
-	confirm_panel.offset_bottom = 35
-	confirm_panel.color = Color(0.05, 0.05, 0.15, 0.98)
+	confirm_panel.offset_left = -68
+	confirm_panel.offset_top = -30
+	confirm_panel.offset_right = 68
+	confirm_panel.offset_bottom = 30
+	confirm_panel.color = Color(0.04, 0.02, 0.01, 0.98)
 	confirm_panel.visible = false
 	add_child(confirm_panel)
 	
-	var cvbox = VBoxContainer.new()
-	cvbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	confirm_panel.add_child(cvbox)
+	var cvb = VBoxContainer.new()
+	cvb.alignment = BoxContainer.ALIGNMENT_CENTER
+	cvb.add_theme_constant_override("separation", 5)
+	confirm_panel.add_child(cvb)
 	
-	var q = Label.new()
-	q.text = "确认退出？"
-	q.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	q.add_theme_font_size_override("font_size", 11)
-	cvbox.add_child(q)
+	var lq = Label.new()
+	lq.text = "确认退出？"
+	lq.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lq.add_theme_font_size_override("font_size", 10)
+	cvb.add_child(lq)
 	
-	_add_spacer(cvbox, 4)
+	var row = HBoxContainer.new()
+	row.alignment = HBoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 18)
+	cvb.add_child(row)
 	
-	var optrow = HBoxContainer.new()
-	optrow.alignment = HBoxContainer.ALIGNMENT_CENTER
-	cvbox.add_child(optrow)
+	yes_lbl = Label.new()
+	yes_lbl.text = "是的"
+	yes_lbl.add_theme_font_size_override("font_size", 10)
+	row.add_child(yes_lbl)
 	
-	yes_label = Label.new()
-	yes_label.text = "[ 是 ]"
-	yes_label.add_theme_font_size_override("font_size", 11)
-	optrow.add_child(yes_label)
+	no_lbl = Label.new()
+	no_lbl.text = "再想想"
+	no_lbl.add_theme_font_size_override("font_size", 10)
+	row.add_child(no_lbl)
 	
-	var spacer2 = Control.new()
-	spacer2.custom_minimum_size = Vector2(16, 0)
-	optrow.add_child(spacer2)
-	
-	no_label = Label.new()
-	no_label.text = "[ 再想想 ]"
-	no_label.add_theme_font_size_override("font_size", 11)
-	optrow.add_child(no_label)
-	
-	_update_menu_highlight()
+	_update()
 
-func _add_spacer(parent: Control, height: float) -> void:
-	var s = Control.new()
-	s.custom_minimum_size = Vector2(0, height)
-	parent.add_child(s)
+func _update() -> void:
+	arrow1.visible = (selected == 0)
+	arrow2.visible = (selected == 1)
+	
+	yes_lbl.add_theme_color_override("font_color", Color(1,1,0.3) if confirm_sel==0 else Color(0.65,0.65,0.65))
+	no_lbl.add_theme_color_override("font_color", Color(1,1,0.3) if confirm_sel==1 else Color(0.65,0.65,0.65))
+	
+	_update_sword()
 
-func _update_sword_label() -> void:
-	var has_sword = false
+func _update_sword() -> void:
+	var s = false
 	if get_tree().get_nodes_in_group("game").size() > 0:
-		var game = get_tree().get_nodes_in_group("game")[0]
-		has_sword = game.has_sword
-	sword_label.text = "  " + ("⚔ 有剑" if has_sword else "无剑")
-
-func _update_menu_highlight() -> void:
-	quit_label.add_theme_color_override("font_color", Color(1, 1, 1) if selected == MenuOption.QUIT else Color(0.6, 0.6, 0.6))
-	yes_label.add_theme_color_override("font_color", Color(1, 1, 0.5) if confirm_selected == ConfirmOption.YES else Color(0.6, 0.6, 0.6))
-	no_label.add_theme_color_override("font_color", Color(1, 1, 0.5) if confirm_selected == ConfirmOption.NO else Color(0.6, 0.6, 0.6))
+		s = get_tree().get_nodes_in_group("game")[0].has_sword
+	sword_val_label.text = "剑:" + ("有" if s else "无")
 
 func _input(event: InputEvent) -> void:
 	if not visible:
-		if event is InputEventKey and event.pressed:
-			if event.keycode == KEY_M:
-				_open_menu()
+		if event is InputEventKey and event.pressed and event.keycode == KEY_M:
+			_open()
 		return
-	
-	if event is InputEventKey and event.pressed:
-		match state:
-			State.MENU:
-				if event.keycode == KEY_M or event.keycode == KEY_ESCAPE:
-					_close_menu()
-				elif event.keycode == KEY_SPACE or event.keycode == KEY_ENTER:
-					if selected == MenuOption.QUIT:
-						_show_confirm()
-			State.CONFIRM:
-				if event.keycode == KEY_LEFT or event.keycode == KEY_RIGHT:
-					confirm_selected = ConfirmOption.YES if confirm_selected == ConfirmOption.NO else ConfirmOption.NO
-					_update_menu_highlight()
-				elif event.keycode == KEY_SPACE or event.keycode == KEY_ENTER:
-					if confirm_selected == ConfirmOption.YES:
-						get_tree().quit()
-					else:
-						_hide_confirm()
+	if not (event is InputEventKey and event.pressed):
+		return
+	match state:
+		State.MENU:
+			if event.keycode in [KEY_LEFT, KEY_A]:
+				selected = 0
+				_update()
+			elif event.keycode in [KEY_RIGHT, KEY_D]:
+				selected = 1
+				_update()
+			elif event.keycode in [KEY_M, KEY_ESCAPE]:
+				_close()
+			elif event.keycode in [KEY_SPACE, KEY_ENTER]:
+				if selected == 1:
+					_show_confirm()
+		State.CONFIRM:
+			if event.keycode in [KEY_LEFT, KEY_A]:
+				confirm_sel = 0
+				_update()
+			elif event.keycode in [KEY_RIGHT, KEY_D]:
+				confirm_sel = 1
+				_update()
+			elif event.keycode == KEY_ESCAPE:
+				_hide_confirm()
+			elif event.keycode in [KEY_SPACE, KEY_ENTER]:
+				if confirm_sel == 0:
+					get_tree().quit()
+				else:
+					_hide_confirm()
 
-func _open_menu() -> void:
-	visible = true
+func _open() -> void:
+	_update_sword()
+	selected = 1
+	confirm_sel = 1
 	state = State.MENU
-	_update_sword_label()
-	_update_menu_highlight()
+	confirm_panel.visible = false
+	visible = true
 	get_tree().paused = true
+	_update()
 
-func _close_menu() -> void:
+func _close() -> void:
 	visible = false
 	get_tree().paused = false
+	state = State.NONE
 
 func _show_confirm() -> void:
 	state = State.CONFIRM
-	confirm_selected = ConfirmOption.NO
+	confirm_sel = 1
 	confirm_panel.visible = true
-	_update_menu_highlight()
+	_update()
 
 func _hide_confirm() -> void:
 	state = State.MENU
 	confirm_panel.visible = false
-	_update_menu_highlight()
+	_update()
