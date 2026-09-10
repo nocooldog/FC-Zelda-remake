@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://player01" path="res://scenes/player.tscn" id="1_player"]
 
-[sub_resource type="RectangleShape2D" id="Shape2D_1"]
+[sub_resource type="RectangleShape2D" id="Shape2D_wall"]
 size = Vector2(8, 224)
 
 [node name="Main" type="Node2D"]
@@ -13,7 +13,7 @@ size = Vector2(8, 224)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallL"]
 position = Vector2(4, 112)
-shape = SubResource("Shape2D_1")
+shape = SubResource("Shape2D_wall")
 
 [node name="ColorRect" type="ColorRect" parent="WallL"]
 offset_left = 0
@@ -26,7 +26,7 @@ color = Color(0.35, 0.22, 0.1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallR"]
 position = Vector2(252, 112)
-shape = SubResource("Shape2D_1")
+shape = SubResource("Shape2D_wall")
 
 [node name="ColorRect" type="ColorRect" parent="WallR"]
 offset_left = 248
@@ -35,11 +35,7 @@ offset_right = 256
 offset_bottom = 224
 color = Color(0.35, 0.22, 0.1, 1)
 
-[node name="Floor" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(128, 220)
-shape = SubResource("Shape2D_1")
+[node name="Floor" type="Node2D" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Floor"]
 offset_left = 0
