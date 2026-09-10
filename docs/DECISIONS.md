@@ -81,3 +81,69 @@
 |------|------|----------|
 | V0.1 | 2026-09-10 | 初始版本，从 PROJECT_DEF_V0.1 提取 |
 | V0.2 | 2026-09-10 | 补充 P00 环境盘点结果，更新 O-001/O-002 待确认项 |
+
+**O-005 最终细化（@general 实测，2026-09-10）：**
+- ✅ godotengine.org HTML 可达（但 cdn.godotengine.org DNS 失败）
+- ✅ api.github.com 可达（返回 JSON）
+- ❌ objects.githubusercontent.com：超时，无法下载 release binary
+- ❌ cdn.godotengine.org：不通
+- ❌ Docker Hub 新镜像：代理 192.168.3.196:1080 不通
+- ✅ 已缓存 Docker 镜像可用
+
+**结论：Godot binary 必须由 @ben-gao 本地下载后上传到服务器。**
+
+**O-005 进一步更新（@ben-gao 确认）：**
+- macmini02 上 v2ray 已安装：binary `/tmp/v2ray`，HTTP 端口 1080，SOCKS5 端口 1096
+- 节点：ss.bengao82.com (vmess)，监听 0.0.0.0
+- 可通过 `export https_proxy=http://localhost:1080` 后用 curl/wget 下载 GitHub release
+
+---
+
+## P01 前置决策（@ben-gao 拍板，2026-09-10）
+
+| 编号 | 决策内容 | 状态 | 依据 |
+|------|----------|------|------|
+| D-014 | 技术路线收紧：Godot 先验证，Solarus 保留备选，ZQuest 暂停深入核查 | ✅ 已确认 | P01 前期 |
+| D-015 | 区分"网站可达"与"安装包可下载"、"引擎已装"与"可导出试玩版本" | ✅ 已确认 | P01 前期 |
+| D-016 | general 首项交付：最小项目，能移动、能碰墙、能导出，用占位图形 | ✅ 已确认 | P01 前期 |
+| D-017 | 试玩平台：Surface Pro 8，Win11 | ✅ 已确认 | @ben-gao |
+| D-018 | 视觉风格：统一像素尺寸和缩放规则先定；色板/人物比例通过一屏场景比较后定 | ✅ 已确认 | P01 前期 |
+| D-019 | 移动/攻击：四向移动+朝向刺击为暂定基线；速度/距离留待试玩调整 | ✅ 已确认 | P01 前期 |
+| D-020 | 第一座迷宫：等开局样板验收通过后启动，不定具体日期 | ✅ 已确认 | P01 前期 |
+| D-021 | v2ray 已安装：HTTP 1080 / SOCKS5 1096，节点 ss.bengao82.com | ✅ 已确认 | O-005 关闭 |
+
+## 目录结构（最终版）
+
+| 路径 | 用途 | 负责人 |
+|------|------|--------|
+| `src/project.godot` | Godot 项目入口 | @general |
+| `src/scenes/` | 角色、场景、界面 | @general |
+| `src/scripts/` | 游戏逻辑 | @general |
+| `src/assets/` | 游戏用图片、音效、字体 | @general |
+| `src/data/` | 关卡/敌人/道具配置 | @general |
+| `art-source/` | 原始画稿、制作源文件 | 按任务 |
+| `docs/` | 项目定义、决策日志、验收与运行说明 | @writer |
+| `research/` | 调研报告、资源来源与使用条件 | @scout |
+| `tools/` | 安装/运行/构建脚本 | @general |
+| `.local/` | 本机引擎程序（不提交 Git） | @general |
+| `builds/` | 导出试玩版本（不提交 Git） | @general |
+| `README.md` | 项目入口、启动方法、当前状态 | @writer |
+| `CONTRIBUTING.md` | 成员职责、提交与验收规则 | @Cindy + @writer |
+| `.gitignore` | 排除缓存、本机工具和构建产物 | @general |
+
+## 目录结构调整（@scout 建议，@ben-gao 采纳）
+
+| 路径 | 用途 | 说明 |
+|------|------|------|
+| `.local/godot/` | Godot 引擎程序 | 不进 Git |
+| `.local/tools/` | 本机辅助脚本 | 不进 Git |
+| `builds/` | 导出试玩版本 | 不进 Git |
+| `tools/` | 改为构建脚本 | 替代原"安装/运行" |
+| `src/assets/` | 游戏用图片/音效/字体 | |
+| `src/data/` | 关卡/敌人/道具配置 | |
+
+**v2ray 启动验证（@Cindy 实测）：**
+- 已手动启动 v2ray（pid 在跑），配置走 ss.bengao82.com vmess
+- 直连 github.com 仍超时；加 `http_proxy=http://127.0.0.1:1080` 前缀后 GitHub release 下载成功、git clone 成功
+- 使用方式：`export http_proxy=http://127.0.0.1:1080 https_proxy=http://127.0.0.1:1080 all_proxy=socks5://127.0.0.1:1096`
+- 持久化方案待 @ben-gao 拍板（临时会话 / systemd 自启）

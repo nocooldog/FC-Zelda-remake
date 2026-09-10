@@ -1,34 +1,17 @@
-# Godot 特定
+# Godot engine & cache
+.local/
 .godot/
-.import/
-*.translation
-*.remap
-*.gd.uid
-addons/*/plugin.cfg
+import/
 
-# 引擎与构建产物
-tools/godot*
-src/.import/
-src/export_presets.cfg
+# Build output
+builds/
 
-# 系统与编辑器
+# OS files
 .DS_Store
-Thumbs.db
 *.swp
-*~
-.idea/
-.vscode/
+*.swo
+Thumbs.db
 
-# 本地配置与环境
-.env
-.env.local
-
-# 临时与缓存
-*.log
+# Godot project files
 *.tmp
-__pycache__/
-*.pyc
-.cache/
-
-# 上传用临时目录（不进 git）
-uploads/
+*.import
