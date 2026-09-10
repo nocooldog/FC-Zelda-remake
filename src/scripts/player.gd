@@ -45,8 +45,8 @@ func _physics_process(delta: float) -> void:
 	velocity = direction * SPEED
 	move_and_slide()
 	
-	position.x = clamp(position.x, 6.0, 250.0)
-	position.y = clamp(position.y, 6.0, 218.0)
+	position.x = clamp(position.x, 6.0, 234.0)
+	position.y = clamp(position.y, 6.0, 154.0)
 	
 	# 按空格攻击
 	if Input.is_key_pressed(KEY_SPACE) and has_sword and not is_attacking:

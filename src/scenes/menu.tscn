@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://menu01"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1"]
+
+[node name="Menu" type="CanvasLayer"]
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+theme_override_font_sizes/font_size = 12
+text = "≡ 菜单 ≡"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="EquipLabel" type="Label" parent="Panel/VBox"]
+theme_override_font_sizes/font_size = 10
+text = "装备:"
+horizontal_alignment = 1
+
+[node name="SwordLabel" type="Label" parent="Panel/VBox"]
+theme_override_font_sizes/font_size = 10
+text = "  [无剑]"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="OptionsLabel" type="Label" parent="Panel/VBox"]
+theme_override_font_sizes/font_size = 10
+text = "按 ← → 选择"
+horizontal_alignment = 1
+
+[node name="QuitLabel" type="Label" parent="Panel/VBox"]
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "[ 退出 ]"
+horizontal_alignment = 1
+
+[node name="ConfirmPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -40.0
+offset_right = 70.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="ConfirmPanel"]
+
+[node name="Label" type="Label" parent="ConfirmPanel/VBox"]
+theme_override_font_sizes/font_size = 10
+text = "确认退出？"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="ConfirmPanel/VBox"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="OptionsRow" type="HBoxContainer" parent="ConfirmPanel/VBox"]
+alignment = 1
+
+[node name="YesLabel" type="Label" parent="ConfirmPanel/VBox/OptionsRow"]
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+text = "[ 是 ]"

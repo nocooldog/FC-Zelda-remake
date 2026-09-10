@@ -1,11 +1,14 @@
 extends Node2D
 
-## 游戏管理器：场景切换 + 存档
+## 游戏管理器：场景切换 + 存档 + 缩放热键
 
 const SAVE_PATH = "user://save.dat"
+const BASE_W: int = 240
+const BASE_H: int = 160
 
 var current_room: String = "main"
 var has_sword: bool = false
+var _scale: int = 2  # 默认 2x
 
 @onready var player: CharacterBody2D = $Player
 
@@ -14,13 +17,27 @@ func _ready() -> void:
 	load_game()
 	set_sword_visibility()
 	connect_transition_zones()
+	resize_window()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		match event.keycode:
+			KEY_F1: _change_scale(1)
+			KEY_F2: _change_scale(2)
+			KEY_F3: _change_scale(3)
+
+func _change_scale(s: int) -> void:
+	_scale = s
+	resize_window()
+
+func resize_window() -> void:
+	get_window().size = Vector2i(BASE_W * _scale, BASE_H * _scale)
+	get_window().center()
 
 func connect_transition_zones() -> void:
-	# 连接洞穴入口（从主场景进洞）
 	var entrance = get_node_or_null("CaveEntrance")
 	if entrance:
 		entrance.body_entered.connect(_on_cave_entrance)
-	# 连接洞穴出口（从洞穴出来）
 	var exit_area = get_node_or_null("CaveExit")
 	if exit_area:
 		exit_area.body_entered.connect(_on_cave_exit)
@@ -41,7 +58,7 @@ func on_player_get_sword() -> void:
 	if player:
 		var cr = player.get_node_or_null("ColorRect")
 		if cr:
-			cr.color = Color(0.5, 0.8, 1.0, 1.0)  # 蓝色表示有剑
+			cr.color = Color(0.5, 0.8, 1.0, 1.0)
 
 func transition_to_overworld() -> void:
 	save_game()
@@ -55,8 +72,8 @@ func save_game() -> void:
 	var save_data = {
 		"has_sword": has_sword,
 		"room": current_room,
-		"player_x": player.position.x if player else 128.0,
-		"player_y": player.position.y if player else 150.0
+		"player_x": player.position.x if player else 120.0,
+		"player_y": player.position.y if player else 140.0
 	}
 	var f = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f:

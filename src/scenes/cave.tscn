@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://scripts/game.gd" id="3_game"]
 
 [sub_resource type="RectangleShape2D" id="Shape2D_wall"]
-size = Vector2(8, 224)
+size = Vector2(8, 160)
 
 [sub_resource type="RectangleShape2D" id="Shape2D_floor"]
-size = Vector2(256, 8)
+size = Vector2(240, 8)
 
 [sub_resource type="RectangleShape2D" id="Shape2D_exit"]
 size = Vector2(32, 8)
@@ -17,70 +17,70 @@ size = Vector2(32, 8)
 script = ExtResource("3_game")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(128, 40)
+position = Vector2(120, 30)
 
 [node name="SwordSpawn" type="Node2D" parent="."]
-position = Vector2(128, 150)
+position = Vector2(120, 120)
 
 [node name="Sword" parent="SwordSpawn" instance=ExtResource("2_sword")]
 
 [node name="WallL" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallL"]
-position = Vector2(4, 112)
+position = Vector2(4, 80)
 shape = SubResource("Shape2D_wall")
 
 [node name="ColorRect" type="ColorRect" parent="WallL"]
 offset_left = 0
 offset_top = 0
 offset_right = 8
-offset_bottom = 224
+offset_bottom = 160
 color = Color(0.35, 0.22, 0.1, 1)
 
 [node name="WallR" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallR"]
-position = Vector2(252, 112)
+position = Vector2(236, 80)
 shape = SubResource("Shape2D_wall")
 
 [node name="ColorRect" type="ColorRect" parent="WallR"]
-offset_left = 248
+offset_left = 232
 offset_top = 0
-offset_right = 256
-offset_bottom = 224
+offset_right = 240
+offset_bottom = 160
 color = Color(0.35, 0.22, 0.1, 1)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(128, 220)
+position = Vector2(120, 156)
 shape = SubResource("Shape2D_floor")
 
 [node name="ColorRect" type="ColorRect" parent="Floor"]
 offset_left = 0
-offset_top = 216
-offset_right = 256
-offset_bottom = 224
+offset_top = 152
+offset_right = 240
+offset_bottom = 160
 color = Color(0.2, 0.55, 0.2, 1)
 
 [node name="CaveExit" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaveExit"]
-position = Vector2(128, 4)
+position = Vector2(120, 4)
 shape = SubResource("Shape2D_exit")
 
 [node name="ColorRect" type="ColorRect" parent="CaveExit"]
-offset_left = 112
+offset_left = 104
 offset_top = 0
-offset_right = 144
+offset_right = 136
 offset_bottom = 8
 color = Color(0.3, 0.6, 0.3, 1)
 
 [node name="OldMan" type="StaticBody2D" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="OldMan"]
-offset_left = 118
-offset_top = 80
-offset_right = 138
-offset_bottom = 100
+offset_left = 108
+offset_top = 60
+offset_right = 132
+offset_bottom = 84
 color = Color(0.7, 0.6, 0.5, 1)
