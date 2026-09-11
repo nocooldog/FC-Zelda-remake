@@ -19,19 +19,31 @@
 
 | 项 | 当前值 |
 |---|---|
-| v0.2 pck sha256 | `d9239c713dfde5f8c78f83df05c71a9c3101111f7c432960602bd0ef0e10abe5` |
-| v0.2 commit hash | `2f064cfa09cdc2b7a180ed6414f1e89fab8e5ea0`（短 `2f064cf`） |
-| **v0.2.1 pck sha256** | `c53ae27346113c22bc172f041d4a66f21c954409e605c6d1fd2ff40bf2dac4fb`（仅清理） |
-| **v0.2.1 commit hash** | `126fe6ecf220972d8af53c229ad41afcf8b9a194`（短 `126fe6e`） |
+| ~~v0.2 pck sha256~~ | ~~`d9239c713dfde5f8c78f83df05c71a9c3101111f7c432960602bd0ef0e10abe5`~~ （**已被 v0.2.2 取代**） |
+| ~~v0.2 commit hash~~ | ~~`2f064cfa09cdc2b7a180ed6414f1e89fab8e5ea0`~~ |
+| ~~v0.2.1 pck sha256~~ | ~~`c53ae27346113c22bc172f041d4a66f21c954409e605c6d1fd2ff40bf2dac4fb`~~ （**已被 v0.2.2 取代**） |
+| ~~v0.2.1 commit hash~~ | ~~`126fe6ecf220972d8af53c229ad41afcf8b9a194`~~ |
+| **v0.2.2 pck sha256** | `3156eb0175ed0c22d8f13190cf17bcd7a3def68fbe88bb80d7e9f55cb41e5cc3`（**新主验证线**） |
+| **v0.2.2 commit hash** | `939fbb16e91740ceb7be646c2706a0838a49e2c5`（短 `939fbb1`） |
 | exe sha256 | `4a9eaded...`（不变） |
 | 下载 URL | `releases/tag/v0.0.1`（@general 重传 pck） |
 | v0.2 包含修复 | 5 项拍板项 + 额外 slime shape 12×12 + enemy collision_layer=2 + 攻击白矩形 + enemy 死亡禁用 |
 | v0.2.1 额外清理 | game.gd 删 ColorRect 死代码 + player.gd pickup_sword 加 [DEBUG] print + player.gd attack hit 加 [DEBUG] print + menu.gd 无 OS.window_size 调用（已核实） |
+| v0.2.2 关键修复 | menu PanelContainer.color → StyleBoxFlat.add_theme_stylebox_override("panel") + Window.center() → Window.move_to_center()（headless 验证发现 v0.2/v0.2.1 菜单背景透明 + 窗口不居中） |
 
-**v0.2 vs v0.2.1 说明**：
-- **v0.2** 是主验证线（@ben-gao 6 步验收用）
-- **v0.2.1** 仅清理 + debug，不影响主功能
-- 如果 v0.2 验收成功，v0.2.1 可以不验收（主路径已通）
+**v0.2 / v0.2.1 vs v0.2.2 说明**（@ben-gao 注意）：
+- ❌ **v0.2**（commit `2f064cf`）已被 v0.2.2 取代（菜单背景透明 + 窗口不居中严重 bug）
+- ❌ **v0.2.1**（commit `126fe6e`）同样被取代
+- ✅ **v0.2.2**（commit `939fbb1`）是当前主验证线（7 步验收：6 步原闭环 + 1 步菜单验证）
+
+**v0.2.2 验收路径**（@ben-gao）：
+1. 新游戏启动 → 窗口**应居中**
+2. 进洞穴拿剑 → 玩家变蓝
+3. 出洞持剑
+4. 按空格攻击史莱姆（白矩形 + 命中）
+5. 击杀敌人（敌人消失）
+6. 退出重开仍持剑
+7. **新增**：按 M → 菜单弹出 → **菜单应有可见背景框** → 左右键切焦点 → 空格退出
 
 **v0.2 必须全绿的项**：
 - [ ] 5 剑拾取（has_sword 同步）
